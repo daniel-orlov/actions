@@ -22,7 +22,7 @@ jobs:
       - name: Build
         run: go build -o server main.go
       - name: Archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: server
           path: server
@@ -38,7 +38,7 @@ jobs:
           go install github.com/jstemmer/go-junit-report@latest
           go test -v ./... | go-junit-report -set-exit-code > report.xml
       - name: Test Summary
-        uses: test-summary/action@v1
+        uses: test-summary/action@v2
         with:
           paths: report.xml
 
@@ -48,13 +48,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: server
       - name: Build
         run: docker build -t ${{ github.repository }}:${{ github.sha }} ./build
       - name: Archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: image
           path: image.tar
