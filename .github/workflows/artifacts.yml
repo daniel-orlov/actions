@@ -43,18 +43,18 @@ jobs:
           ./artifacts/gh-actions-demo-linux-amd64
           curl localhost:8080
 
-    test-windows:
-      runs-on: windows-latest
-      needs: build
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v2
-        - name: Download artifacts for Windows latest
-          uses: actions/download-artifact@v2
-          with:
-            name: gh-actions-demo-windows-amd64.exe
-            path: artifacts
-        - name: Run tests for Windows latest
-          run: |
-            ./artifacts/gh-actions-demo-windows-amd64.exe
-            curl localhost:8080
+  test-windows:
+    runs-on: windows-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download artifacts for Windows latest
+        uses: actions/download-artifact@v2
+        with:
+          name: gh-actions-demo-windows-amd64.exe
+          path: artifacts
+      - name: Run tests for Windows latest
+        run: |
+          ./artifacts/gh-actions-demo-windows-amd64.exe
+          curl localhost:8080
