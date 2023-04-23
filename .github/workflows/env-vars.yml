@@ -3,7 +3,7 @@ name: Environment Variables
 on:
   push:
     branches:
-      - main
+      - env-vars
 
 env:
   WORKFLOW_ENV_VAR: "Hello from the workflow file!"
