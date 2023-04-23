@@ -2,7 +2,7 @@ name: custom
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "custom" ]
 
 jobs:
   job1:
