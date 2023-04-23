@@ -42,7 +42,7 @@ jobs:
         with:
           name: server
       - name: Build
-        run: docker build -t ${{ github.repository }}:${{ github.sha }} .
+        run: docker build -t ${{ github.repository }}:${{ github.sha }} ./build
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
