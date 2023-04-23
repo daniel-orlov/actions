@@ -51,6 +51,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: server
+          path: build
       - name: Build
         run: docker build -t ${{ github.repository }}:${{ github.sha }} ./build
       - name: Archive
