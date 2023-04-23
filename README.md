@@ -1,4 +1,5 @@
 # actions
 
 [//]: # (badges)
-![](https://github.com/daniel-orlov/actions/workflows/pipeline/badge.svg)
+Build status:
+![](https://github.com/daniel-orlov/actions/workflows/Pipeline/badge.svg)
