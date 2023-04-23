@@ -1,0 +1,52 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Lint
+        uses: docker://golangci/golangci-lint:latest-alpine
+        with:
+          args: [ "run", "--timeout", "10m" ]
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: go build -o server main.go
+      - name: Archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: server
+          path: server
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test
+        run: go test -v ./...
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: [ lint, build, test ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download
+        uses: actions/download-artifact@v2
+        with:
+          name: server
+      - name: Build
+        run: docker build -t ${{ github.repository }}:${{ github.sha }} .
+      - name: Archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: image
+          path: image.tar
