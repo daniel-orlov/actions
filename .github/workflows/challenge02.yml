@@ -1,0 +1,23 @@
+name: challenge02
+
+on:
+  push:
+    branches:
+      - challenge02
+
+env:
+  ARTIFACT_NAME: gh-actions-demo.txt
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build for Ubuntu latest
+        run: touch $ARTIFACT_NAME
+      - name: Upload artifacts for Ubuntu latest
+        uses: actions/upload-artifact@v2
+        with:
+          name: $ARTIFACT_NAME
+          path: artifacts/$ARTIFACT_NAME
