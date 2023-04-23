@@ -1,0 +1,60 @@
+name: artifacts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build for Ubuntu latest
+        run: go build -o artifacts/gh-actions-demo-linux-amd64
+      - name: Build for Windows latest
+        run: GOOS=windows GOARCH=amd64 go build -o artifacts/gh-actions-demo-windows-amd64.exe
+      - name: Upload artifacts for Ubuntu latest
+        uses: actions/upload-artifact@v2
+        with:
+          name: gh-actions-demo-linux-amd64
+          path: artifacts/gh-actions-demo-linux-amd64
+      - name: Upload artifacts for Windows latest
+        uses: actions/upload-artifact@v2
+        with:
+          name: gh-actions-demo-windows-amd64.exe
+          path: artifacts/gh-actions-demo-windows-amd64.exe
+
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download artifacts for Ubuntu latest
+        uses: actions/download-artifact@v2
+        with:
+          name: gh-actions-demo-linux-amd64
+          path: artifacts
+      - name: Run tests for Ubuntu latest
+        run: |
+          ./artifacts/gh-actions-demo-linux-amd64
+          curl localhost:8080
+
+    test-windows:
+      runs-on: windows-latest
+      needs: build
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Download artifacts for Windows latest
+          uses: actions/download-artifact@v2
+          with:
+            name: gh-actions-demo-windows-amd64.exe
+            path: artifacts
+        - name: Run tests for Windows latest
+          run: |
+            ./artifacts/gh-actions-demo-windows-amd64.exe
+            curl localhost:8080
