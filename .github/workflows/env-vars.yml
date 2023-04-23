@@ -1,0 +1,32 @@
+name: Environment Variables
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  WORKFLOW_ENV_VAR: "Hello from the workflow file!"
+  OVERRIDE_ENV_VAR: "This will be overridden by the job"
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    env:
+    JOB_ENV_VAR: "Hello from the job!"
+    OVERRIDE_ENV_VAR: "This overrides the workflow file"
+    steps:
+      - name: Print env vars
+        env:
+          STEP_ENV_VAR: "Hello from the step!"
+          OVERRIDE_ENV_VAR: "This overrides the job"
+        run: |
+          echo "WORKFLOW_ENV_VAR using YAML syntax: ${{ env.WORKFLOW_ENV_VAR }}"
+          echo "JOB_ENV_VAR using YAML syntax: ${{ env.JOB_ENV_VAR }}"
+          echo "OVERRIDE_ENV_VAR using YAML syntax: ${{ env.OVERRIDE_ENV_VAR }}"
+          echo "STEP_ENV_VAR using YAML syntax: ${{ env.STEP_ENV_VAR }}"
+          echo "GITHUB_WORKFLOW using YAML syntax: ${{ env.GITHUB_WORKFLOW }}"
+          echo "WORKFLOW_ENV_VAR using bash syntax: $WORKFLOW_ENV_VAR"
+          echo "JOB_ENV_VAR using bash syntax: $JOB_ENV_VAR"
+          echo "OVERRIDE_ENV_VAR using bash syntax: $OVERRIDE_ENV_VAR"
+          echo "STEP_ENV_VAR using bash syntax: $STEP_ENV_VAR"
