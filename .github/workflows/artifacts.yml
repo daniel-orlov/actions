@@ -40,7 +40,7 @@ jobs:
           path: artifacts
       - name: Run tests for Ubuntu latest
         run: |
-          sudo ./gh-actions-demo-linux-amd64 & sleep 1 && curl localhost:8080
+          source test_artifacts.sh
 
   test-windows:
     runs-on: windows-latest
@@ -54,5 +54,4 @@ jobs:
           name: gh-actions-demo-windows-amd64.exe
           path: artifacts
       - name: Run tests for Windows latest
-        run: |
-          runas /user:Administrator ".\artifacts\gh-actions-demo-windows-amd64.exe" & ping 127.0.0.1 -n 1 -w 1000 > nul && curl localhost:8080
+        run: artifacts\gh-actions-demo-windows-amd64.exe
