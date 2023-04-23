@@ -1,0 +1,31 @@
+name: custom
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  job1:
+    name: First job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Print the local environment variables
+        run: |
+          echo "Print the local environment variables on Ubuntu"
+          env | sort
+      - name: Print the local server time
+        run: |
+          echo "Print the local server time"
+          date
+  job2:
+    name: Second job
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Print the local environment variables
+        run: |
+          echo "Print the local environment variables on Windows"
+          "Get-ChildItem Env: | Sort-Object Name"
