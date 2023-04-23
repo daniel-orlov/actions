@@ -3,7 +3,7 @@ name: from-marketplace
 on:
   push:
     branches:
-      - main
+      - marketplace
 
 jobs:
   build:
