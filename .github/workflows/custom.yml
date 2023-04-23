@@ -15,10 +15,6 @@ jobs:
         run: |
           echo "Print the local environment variables on Ubuntu"
           env | sort
-      - name: Print the local server time
-        run: |
-          echo "Print the local server time"
-          date
   job2:
     name: Second job
     runs-on: windows-latest
