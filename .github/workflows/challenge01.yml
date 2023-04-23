@@ -3,7 +3,7 @@ name: challenge01
 on:
   push:
     branches:
-      - main
+      - challenge01
 
 jobs:
   job1:
