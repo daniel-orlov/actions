@@ -3,7 +3,7 @@ name: challenge02
 on:
   push:
     branches:
-      - main
+      - challenge02
 
 env:
   ARTIFACT_NAME: gh-actions-demo.txt
